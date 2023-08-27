@@ -5,34 +5,38 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
-public class WorldClockApplication {
+public class WorldClockApp {
+
 	
-	// In this exercise, we are going to be using ZonedDateTime from the java.time package.  Like LocalDate and LocalDateTime,
-	// starting from Java 8 onwards, we can easily add in timezones to our date to get the correct time information
-	// from different countries.  If you chose your own countries, you may need to do a quick google search on your country
-	// zone id.  The format is usually <Continent>/<City>
-	
+
 	private final static ZoneId BRISBANE = ZoneId.of("Australia/Brisbane");
 	private final static ZoneId DUBLIN = ZoneId.of("Europe/Dublin");
+	private final static ZoneId SACRAMENTO = ZoneId.of("America/Los_Angeles");
 
 	public static void main(String[] args) {
 		
 
 		// first we need to capture what the time is at this exact moment...
-		ZonedDateTime zonedDateTime = ZonedDateTime.now();
+		ZonedDateTime zonedDateTimeBrisbane = ZonedDateTime.now(BRISBANE);
+		ZonedDateTime zonedDateTimeDublin = ZonedDateTime.now(DUBLIN);
+		ZonedDateTime zonedDateTimeSacramento = ZonedDateTime.now(SACRAMENTO);
 
-		
 		// from here you will need to create three system outs to print out the times and dates
+		System.out.println("The Time in Brisbane is: " +zonedDateTimeBrisbane);
+		System.out.println("The Time in Dublin is: " +zonedDateTimeDublin);
+		System.out.println("The Time in Sacramento is: " +zonedDateTimeSacramento);
 		
-		// ZonedDateTime has a method called withZoneSameInstant(<ZoneId>) which gives you the exact date time in the
-		// time zone you put in using tbe zone id.  Try putting in zonedDateTime.withZoneSameInstant(BRISBANE)...
+		
+		/*ZonedDateTime brisbaneTimeInDublin = zonedDateTimeBrisbane.withZoneSameLocal(DUBLIN);
+		ZonedDateTime brisbaneTimeInSacramento = zonedDateTimeBrisbane.withZoneSameLocal(SACRAMENTO);
+		*/
 		
 		// after we grabbed the time in our coutnry, we need to format the output using our DateTimeFormatter...
-		
+		DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
 		// we need to format it in a way that is easily readable, for this assignment, use FormatStyle.MEDIUM
-		
-		// ... .format(DateTImeFormatter.ofLocalizedDateTIme(FormatStyle.MEDIUM));
-		
+		System.out.println("Formatted Brisbane time: " + zonedDateTimeBrisbane.format(formatter));
+		System.out.println("Formatted Dublin time: " + zonedDateTimeDublin.format(formatter));
+		System.out.println("Formatted Sacramento time: " + zonedDateTimeSacramento.format(formatter));
 		
 
 	}
